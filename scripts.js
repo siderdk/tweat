@@ -1,18 +1,18 @@
 const recipeObject = {
     id: 1,
     title: "Gløgg",
-    picture_url:
+    pictureLink:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Gl%C3%B6gg_kastrull.JPG/800px-Gl%C3%B6gg_kastrull.JPG",
     ingredients: [
-      { NAME: "Orange zest", AMOUNT: "0.5" },
-      { NAME: "Water", AMOUNT: "200 ml" },
-      { NAME: "Sugar", AMOUNT: "275 g" },
-      { NAME: "Whole cloves", AMOUNT: "5" },
-      { NAME: "Cinnamon sticks", AMOUNT: "2" },
-      { NAME: "Spice", AMOUNT: undefined },
-      { NAME: "Bottle of red wine", AMOUNT: "1" },
-      { NAME: "Raisins", AMOUNT: "100 g" },
-      { NAME: "Slipped Almonds", AMOUNT: "50 g" },
+      { name: "Orange zest", amount: "0.5" },
+      { name: "Water", amount: "200 ml" },
+      { name: "Sugar", amount: "275 g" },
+      { name: "Whole cloves", amount: "5" },
+      { name: "Cinnamon sticks", amount: "2" },
+      { name: "Spice", amount: undefined },
+      { name: "Bottle of red wine", amount: "1" },
+      { name: "Raisins", amount: "100 g" },
+      { name: "Slipped Almonds", amount: "50 g" },
     ],
     description: "Mix everything, heat it, and you are good to go!",
   };
@@ -26,11 +26,11 @@ const cookingSteps = document.querySelector('.cookingSteps')
 // linking the elements to the recipe's object
 
 recipeName.innerText = recipeObject.title
-recipeImg.src = recipeObject.picture_url
+recipeImg.src = recipeObject.pictureLink
 
 for (let element of recipeObject.ingredients) {
     const listItem = document.createElement('li')
-    listItem.innerText = `${element.AMOUNT} of ${element.NAME}`;
+    listItem.innerText = `${element.amount} of ${element.name}`;
     ingredientsList.appendChild(listItem)
 }
 
@@ -75,7 +75,8 @@ function addName(event){
     <br>
     <label for="ingredient1">Add ingredient</label>
     <input type="text" id="ingredient1" placeholder="ingredient name"/><input id="amount1" type="number" min="0" max="9999" placeholder="amount"/><label for="unit1">unit</label><select id="unitDropDown"><option value="gr" selected>grams</option><option value="dl">dl</option><option value="cup">cup</option><option value="units">units</option></select>
-    <button class="addIngredient">Add</button>
+    <button class="addIngredient">Add</button><br>
+    <button class="addDescription">Add description</button>
     `
     parent.insertAdjacentHTML('beforeend', HTMLString);
     const addNewIngredient = document.querySelector('.addIngredient')
@@ -88,18 +89,11 @@ function addIngredient(event) {
     const ingredientUnitInput = document.querySelector('#unitDropDown');
 
     const newIngredient = {
-        NAME: ingredientNameInput.value,
-        AMOUNT: `${ingredientAmountInput.value} ${ingredientUnitInput.value}`
+        name: ingredientNameInput.value,
+        amount: `${ingredientAmountInput.value} ${ingredientUnitInput.value}`
     };
 
-    
     newRecipeObject.ingredients.push(newIngredient);
-
-    // Clear inputs for the next ingredient
-    ingredientNameInput.value = '';
-    ingredientAmountInput.value = '';
-    ingredientUnitInput.value = 'gr'; 
-
  
     console.log(newRecipeObject.ingredients);
 }
